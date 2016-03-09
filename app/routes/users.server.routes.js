@@ -22,6 +22,18 @@ module.exports = function (app) {
 	app.route('/users').post(users.create)
 		.get(users.list);
 
+	app.get('/oauth/facebook', passport.authenticate('facebook', {failureRedirect: '/signin'}));
+	app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
+		faiuluerRedirect: '/signin',
+		successRedirect: '/'
+	}));
+
+	app.get('/oauth/twitter', passport.authenticate('twitter', {failureRedirect:'/signin'}));
+	app.get('/oauth/twitter/callback', passport.authenticate('twitter', {
+		failureRedirect:'/signin',
+		succesredirect: '/'
+	}));
+
 	app.route('/users/:userId')
 		.get(users.read)
 		.put(users.update)
